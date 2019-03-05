@@ -13,6 +13,7 @@ import Generator
 import Discriminator
 import time
 import datetime
+import csv
 
 def Train():
     # Setting some hyperparameters
@@ -52,7 +53,10 @@ def Train():
     Total_Training = 25
     #opening or creating the Neural Network Loss log. If file exists, overwrites the file for a new session.
     file = open("Neural Network Loss.txt", "w")
-
+    with open('ATHENA.csv', 'w') as CSV_file:
+        fieldnames = ['Current_Step', 'Epoch', 'Current_Epoch','Total_Training','Epoch_Time', 'Total_Training']
+        writer = csv.DictWriter(CSV_file, fieldnames=fieldnames)
+        writer.writeheader()
     for epoch in range(Total_Training):
 
         for i, data in enumerate(dataloader, 0):
@@ -101,6 +105,8 @@ def Train():
                 vutils.save_image(fake.data, '%s/fake_samples_epoch_%03d.png' % ("./results", epoch), normalize=True)
             #ending the timer to create our estimated completion times
             end = time.time()
+            #One Epoch = len(DataLoader)
+            Epoch = len(dataloader)
             #calculating the epoch trainging time
             epoch_time = len(dataloader) * (end-start)
             #printing the estimated time of completion for one epoch
@@ -116,3 +122,6 @@ def Train():
             file.write("\nEstimated Time too Training Completion: {:0>8}\n\n".format(str(datetime.timedelta(seconds=Total_Training_Time))))
             #Closing Neural Network Loss Log
             file.close()
+            CSV_file = open('ATHENA.csv', 'a+')
+            writer.writerow({'Current_Step':i, 'Epoch':Epoch, 'Current_Epoch':epoch,'Total_Training':Total_Training,'Epoch_Time':epoch_time, 'Total_Training':Total_Training_Time})
+            CSV_file.close()

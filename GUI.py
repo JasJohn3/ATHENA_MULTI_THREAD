@@ -8,11 +8,12 @@
 
 import sys
 from PyQt5.QtWidgets import *
-from Data.QtCustomWidgets import *
+from data.QtCustomWidgets import *
 from PyQt5.QtGui import QIcon, QColor, QPalette
 import PyQt5.QtCore as QtCore
 import PyQt5
 
+from data.QtCustomWidgets import QTrainWidget, QDevWidget
 
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
     PyQt5.QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)

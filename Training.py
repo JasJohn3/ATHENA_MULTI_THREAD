@@ -102,10 +102,12 @@ def Train():
             end = time.time()
             #calculating the epoch trainging time
             epoch_time = len(dataloader) * (end-start)
+            epoch_time = str(datetime.timedelta(seconds=epoch_time))
             #printing the estimated time of completion for one epoch
             print("Estimated Time too Epoch Completion: {:0>8}".format(str(datetime.timedelta(seconds=epoch_time))))
             #estimating the completion time for all epochs entered by the user
             Total_Training_Time = epoch_time * Total_Training
+            Total_Training_Time = str(datetime.timedelta(seconds=Total_Training_Time))
             #printing the estimation to the screen for total training
             print("Estimated Time too Training Completion: {:0>8}".format(str(datetime.timedelta(seconds=Total_Training_Time))))
             #Appending the Neural Network Loss Log
